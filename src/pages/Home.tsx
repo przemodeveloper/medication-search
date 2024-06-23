@@ -5,12 +5,13 @@ import { createData } from "../utils/createData";
 import { getDrugsList } from "../services/drugs";
 import useQueryParams from "../hooks/useQueryParams";
 import DrugsListTable from "../components/DrugsListTable";
-import { Result, Row } from "../components/models";
+import { Result, Row } from "../models";
 
 const Home = () => {
   const [drugs, setDrugs] = useState<Row[]>([]);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [totalResults, setTotalResults] = useState<number>(0);
+  const [error, setError] = useState<string | null>(null);
 
   const { setQueryParam, getQueryParam } = useQueryParams();
 
@@ -19,27 +20,37 @@ const Home = () => {
 
   const debouncedGetDrugsList = useCallback(
     debounce(async (searchTerm: string, page: number) => {
-      const data = await getDrugsList({
-        searchTerm,
-        limit: rowsPerPage,
-        skip: rowsPerPage * (page - 1),
-      });
+      try {
+        const data = await getDrugsList({
+          searchTerm,
+          limit: rowsPerPage,
+          skip: rowsPerPage * (page - 1),
+        });
 
-      setTotalResults(data.meta.results.total);
+        setTotalResults(data.meta.results.total);
 
-      console.log(data);
+        const rows = data.results.map((result: Result) => {
+          return createData(
+            result.openfda?.brand_name
+              ? result.openfda?.brand_name.join(", ")
+              : "",
+            result.purpose ? result.purpose.join(", ") : "",
+            result.openfda.product_type
+              ? result.openfda.product_type.join(", ")
+              : "",
+            result.openfda.manufacturer_name
+              ? result.openfda.manufacturer_name.join(", ")
+              : "",
+            result.id
+          );
+        });
 
-      const rows = data.results.map((result: Result) => {
-        return createData(
-          result.openfda.brand_name.join(", "),
-          result.purpose?.join(", ") ?? "",
-          result.openfda.product_type.join(", "),
-          result.openfda.manufacturer_name.join(", "),
-          result.id
-        );
-      });
-
-      setDrugs(rows);
+        setDrugs(rows);
+        setError(null);
+      } catch (e) {
+        setError(e instanceof Error ? e.message : String(e));
+        setDrugs([]);
+      }
     }, 500),
     [rowsPerPage]
   );
@@ -59,6 +70,9 @@ const Home = () => {
   };
 
   useEffect(() => {
+    if (!searchQuery) {
+      setQueryParam("page", "1");
+    }
     debouncedGetDrugsList(searchQuery, pageQuery);
   }, [debouncedGetDrugsList, searchQuery, pageQuery]);
 
@@ -66,9 +80,9 @@ const Home = () => {
     <div className="mt-4">
       <div className="mb-2">
         <TextField
-          id="standard-basic"
-          label="Standard"
-          variant="standard"
+          id="outlined-basic"
+          label="Search medication"
+          variant="outlined"
           value={getQueryParam("search") || ""}
           onChange={(e) => setQueryParam("search", e.target.value)}
         />
@@ -81,6 +95,7 @@ const Home = () => {
         pageQuery={pageQuery}
         handleChangePage={handleChangePage}
         handleChangeRowsPerPage={handleChangeRowsPerPage}
+        error={error}
       />
     </div>
   );

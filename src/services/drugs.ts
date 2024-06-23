@@ -24,7 +24,10 @@ export const getDrugsList = async ({
 
     const response = await axios.get(url);
     return response.data;
-  } catch (error) {
-    throw new Error("Error fetching drugs list");
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error) && error.response) {
+      throw error.response.data.error.message;
+    }
+    throw new Error("An unknown error occurred");
   }
 };

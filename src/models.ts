@@ -6,7 +6,7 @@ export interface Row {
   id: number;
 }
 
-interface RootObject {
+export interface RootResult {
   meta: Meta;
   results: Result[];
 }
@@ -60,6 +60,7 @@ export interface Result {
   overdosage?: string[];
   how_supplied?: string[];
 }
+
 interface Openfda {
   application_number: string[];
   brand_name: string[];
@@ -83,6 +84,7 @@ interface Openfda {
   upc?: string[];
   original_packager_product_ndc?: string[];
 }
+
 interface Meta {
   disclaimer: string;
   terms: string;
@@ -90,6 +92,7 @@ interface Meta {
   last_updated: string;
   results: Results;
 }
+
 interface Results {
   skip: number;
   limit: number;

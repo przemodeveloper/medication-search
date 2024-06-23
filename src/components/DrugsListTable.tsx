@@ -6,9 +6,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { Row } from "./models";
 import { TableFooter, TablePagination } from "@mui/material";
 import TablePaginationControls from "./TablePaginationControls";
+import { Row } from "../models";
+import ErrorFallback from "./ErrorFallback";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -37,6 +38,7 @@ const DrugsListTable = ({
   handleChangePage,
   handleChangeRowsPerPage,
   totalResults,
+  error,
 }: any) => {
   return (
     <TableContainer component={Paper}>
@@ -48,7 +50,9 @@ const DrugsListTable = ({
             <StyledTableCell align="right">Product Type</StyledTableCell>
             <StyledTableCell align="right">Manufacturer name</StyledTableCell>
           </TableRow>
+          {error && <ErrorFallback error={error} />}
         </TableHead>
+
         <TableBody>
           {drugs.map((row: Row) => (
             <StyledTableRow

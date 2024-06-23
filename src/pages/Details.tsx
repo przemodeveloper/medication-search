@@ -9,8 +9,6 @@ const Details = () => {
   const { ndc } = useParams();
   const [details, setDetails] = useState<Result | null>(null);
 
-  console.log(details);
-
   useEffect(() => {
     if (!ndc) {
       return;

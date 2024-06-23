@@ -10,6 +10,7 @@ import { TableFooter, TablePagination } from "@mui/material";
 import TablePaginationControls from "./TablePaginationControls";
 import { Row } from "../models";
 import ErrorFallback from "./ErrorFallback";
+import { Link } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -65,7 +66,9 @@ const DrugsListTable = ({
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <StyledTableCell component="th" scope="row">
-                {row.brand_name}
+                <StyledLink to={`/details/${row.brand_name.toLowerCase()}`}>
+                  {row.brand_name}
+                </StyledLink>
               </StyledTableCell>
               <StyledTableCell align="right">{row.purpose}</StyledTableCell>
               <StyledTableCell align="right">
@@ -103,5 +106,11 @@ const DrugsListTable = ({
     </TableContainer>
   );
 };
+
+const StyledLink = styled(Link)(({ theme }) => ({
+  textDecoration: "none",
+  color: theme.palette.info.dark,
+  fontWeight: 600,
+}));
 
 export default DrugsListTable;

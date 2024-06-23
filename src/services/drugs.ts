@@ -31,3 +31,17 @@ export const getDrugsList = async ({
     throw new Error("An unknown error occurred");
   }
 };
+
+export const getDrugDetails = async (name: string) => {
+  try {
+    const response = await axios.get(
+      `${BASE_URL}?search=openfda.brand_name:${name}`
+    );
+    return response.data;
+  } catch (error: unknown) {
+    if (axios.isAxiosError(error) && error.response) {
+      throw error.response.data.error.message;
+    }
+    throw new Error("An unknown error occurred");
+  }
+};

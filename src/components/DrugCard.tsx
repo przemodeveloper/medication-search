@@ -3,10 +3,10 @@ import { CardContent, Card, Typography } from "@mui/material";
 interface DrugCardProps {
   productType: string;
   brandName: string;
-  activeIngredient: string;
-  purpose: string;
+  activeIngredient?: string;
+  purpose?: string;
   dosageAndAdministration: string;
-  stopUse: string;
+  stopUse?: string;
 }
 
 const DrugCard = ({

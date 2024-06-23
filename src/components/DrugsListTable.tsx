@@ -37,6 +37,19 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
+interface DrugsListTableProps {
+  drugs: Row[];
+  rowsPerPage: number;
+  pageQuery: number;
+  handleChangePage: (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number
+  ) => void;
+  handleChangeRowsPerPage: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  totalResults: number;
+  error: string | null;
+}
+
 const DrugsListTable = ({
   drugs,
   rowsPerPage,
@@ -45,7 +58,7 @@ const DrugsListTable = ({
   handleChangeRowsPerPage,
   totalResults,
   error,
-}: any) => {
+}: DrugsListTableProps) => {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">

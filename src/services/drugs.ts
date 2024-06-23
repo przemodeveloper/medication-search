@@ -1,4 +1,5 @@
 import axios from "axios";
+import { RootResult } from "../models";
 
 const BASE_URL = "https://api.fda.gov/drug/label.json";
 
@@ -10,7 +11,7 @@ export const getDrugsList = async ({
   searchTerm: string;
   limit: number;
   skip?: number;
-}) => {
+}): Promise<RootResult> => {
   try {
     let url = `${BASE_URL}?limit=${limit}`;
 
@@ -32,7 +33,7 @@ export const getDrugsList = async ({
   }
 };
 
-export const getDrugDetails = async (ndc: string) => {
+export const getDrugDetails = async (ndc: string): Promise<RootResult> => {
   try {
     const response = await axios.get(
       `${BASE_URL}?search=openfda.product_ndc:${ndc}`

@@ -32,10 +32,10 @@ export const getDrugsList = async ({
   }
 };
 
-export const getDrugDetails = async (name: string) => {
+export const getDrugDetails = async (ndc: string) => {
   try {
     const response = await axios.get(
-      `${BASE_URL}?search=openfda.brand_name:${name}`
+      `${BASE_URL}?search=openfda.product_ndc:${ndc}`
     );
     return response.data;
   } catch (error: unknown) {

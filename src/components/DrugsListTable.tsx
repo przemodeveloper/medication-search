@@ -66,7 +66,7 @@ const DrugsListTable = ({
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
               <StyledTableCell component="th" scope="row">
-                <StyledLink to={`/details/${row.brand_name.toLowerCase()}`}>
+                <StyledLink to={`/details/${row.product_ndc.toLowerCase()}`}>
                   {row.brand_name}
                 </StyledLink>
               </StyledTableCell>

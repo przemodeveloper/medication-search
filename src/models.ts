@@ -1,9 +1,10 @@
 export interface Row {
   brand_name: string;
-  purpose: number;
-  product_type: number;
-  manufacturer_name: number;
-  id: number;
+  purpose: string;
+  product_type: string;
+  manufacturer_name: string;
+  id: string;
+  product_ndc: string;
 }
 
 export interface RootResult {

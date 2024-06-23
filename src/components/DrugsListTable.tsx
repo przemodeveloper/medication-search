@@ -16,6 +16,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
   },
+
+  maxWidth: 100,
+  whiteSpace: "nowrap",
+  overflow: "hidden",
+  textOverflow: "ellipsis",
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
   },

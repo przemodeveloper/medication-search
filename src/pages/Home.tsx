@@ -61,8 +61,8 @@ const Home = () => {
     newPage: number
   ) => {
     setSearchParams((prevSearchParams) => ({
-      page: String(newPage + 1),
       search: prevSearchParams.get("search") || "",
+      page: String(newPage + 1),
     }));
   };
 
@@ -72,8 +72,8 @@ const Home = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
 
     setSearchParams((prevSearchParams) => ({
-      page: "1",
       search: prevSearchParams.get("search") || "",
+      page: "1",
     }));
   };
 

@@ -1,30 +1,33 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Medication Search
 
-Currently, two official plugins are available:
+The medication-search project aims to provide users with a convenient interface to search the OpenFDA drugs database and retrieve details about specific drugs.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Installation
 
-## Expanding the ESLint configuration
+Clone the repository:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+git clone <repository_url>
+cd medication-search
 ```
+Install dependencies:
+```bash
+npm install
+```
+Run the development server:
+```bash
+npm run dev
+```
+    
+## Usage/Examples
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Once the development server is running, you can access the application in your web browser. Here’s how to use it:
+
+Enter a search phrase in the search bar to find drugs matching your query.
+The results will be displayed in a table format.
+Click on a product name to view detailed information about the selected drug.
+
+
+## Credits
+This project utilizes the OpenFDA API to retrieve drug information. Special thanks to the OpenFDA project for providing access to their database.

@@ -73,46 +73,49 @@ const DrugsListTable = ({
         </TableHead>
 
         <TableBody>
-          {drugs.map((row: Row) => (
-            <StyledTableRow
-              key={row.id}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <StyledTableCell component="th" scope="row">
-                <StyledLink to={`/details/${row.product_ndc.toLowerCase()}`}>
-                  {row.brand_name}
-                </StyledLink>
-              </StyledTableCell>
-              <StyledTableCell align="right">{row.purpose}</StyledTableCell>
-              <StyledTableCell align="right">
-                {row.product_type}
-              </StyledTableCell>
-              <StyledTableCell align="right">
-                {row.manufacturer_name}
-              </StyledTableCell>
-            </StyledTableRow>
-          ))}
+          {drugs?.length > 0 &&
+            drugs.map((row: Row) => (
+              <StyledTableRow
+                key={row.id}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <StyledTableCell component="th" scope="row">
+                  <StyledLink to={`/details/${row.product_ndc.toLowerCase()}`}>
+                    {row.brand_name}
+                  </StyledLink>
+                </StyledTableCell>
+                <StyledTableCell align="right">{row.purpose}</StyledTableCell>
+                <StyledTableCell align="right">
+                  {row.product_type}
+                </StyledTableCell>
+                <StyledTableCell align="right">
+                  {row.manufacturer_name}
+                </StyledTableCell>
+              </StyledTableRow>
+            ))}
         </TableBody>
         <TableFooter>
           <TableRow>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-              colSpan={3}
-              count={totalResults}
-              rowsPerPage={rowsPerPage}
-              page={pageQuery - 1}
-              slotProps={{
-                select: {
-                  inputProps: {
-                    "aria-label": "rows per page",
+            {totalResults > 0 && (
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
+                colSpan={3}
+                count={totalResults}
+                rowsPerPage={rowsPerPage}
+                page={pageQuery - 1}
+                slotProps={{
+                  select: {
+                    inputProps: {
+                      "aria-label": "rows per page",
+                    },
+                    native: true,
                   },
-                  native: true,
-                },
-              }}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-              ActionsComponent={TablePaginationControls}
-            />
+                }}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                ActionsComponent={TablePaginationControls}
+              />
+            )}
           </TableRow>
         </TableFooter>
       </Table>

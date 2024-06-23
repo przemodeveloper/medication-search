@@ -5,10 +5,11 @@ import { createData } from "../utils/createData";
 import { getDrugsList } from "../services/drugs";
 import useQueryParams from "../hooks/useQueryParams";
 import DrugsListTable from "../components/DrugsListTable";
+import { Result, Row } from "../components/models";
 
 const Home = () => {
-  const [drugs, setDrugs] = useState<any[]>([]);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [drugs, setDrugs] = useState<Row[]>([]);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [totalResults, setTotalResults] = useState<number>(0);
 
   const { setQueryParam, getQueryParam } = useQueryParams();
@@ -26,13 +27,15 @@ const Home = () => {
 
       setTotalResults(data.meta.results.total);
 
-      const rows = data.results.map((row: any) => {
+      console.log(data);
+
+      const rows = data.results.map((result: Result) => {
         return createData(
-          row.openfda.brand_name,
-          row.purpose,
-          row.openfda.product_type,
-          row.openfda.manufacturer_name,
-          row.id
+          result.openfda.brand_name.join(", "),
+          result.purpose?.join(", ") ?? "",
+          result.openfda.product_type.join(", "),
+          result.openfda.manufacturer_name.join(", "),
+          result.id
         );
       });
 
@@ -60,8 +63,8 @@ const Home = () => {
   }, [debouncedGetDrugsList, searchQuery, pageQuery]);
 
   return (
-    <div>
-      <div className="mb-1">
+    <div className="mt-4">
+      <div className="mb-2">
         <TextField
           id="standard-basic"
           label="Standard"

@@ -1,13 +1,34 @@
+import { styled } from "@mui/material/styles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import TablePaginationControls from "../components/TablePaginationControls";
-import { TableFooter, TablePagination } from "@mui/material";
 import { Row } from "./models";
+import { TableFooter, TablePagination } from "@mui/material";
+import TablePaginationControls from "./TablePaginationControls";
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
 
 const DrugsListTable = ({
   drugs,
@@ -22,25 +43,29 @@ const DrugsListTable = ({
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
-            <TableCell>Brand Name</TableCell>
-            <TableCell align="right">Purpose</TableCell>
-            <TableCell align="right">Product Type</TableCell>
-            <TableCell align="right">Manufacturer name</TableCell>
+            <StyledTableCell>Brand Name</StyledTableCell>
+            <StyledTableCell align="right">Purpose</StyledTableCell>
+            <StyledTableCell align="right">Product Type</StyledTableCell>
+            <StyledTableCell align="right">Manufacturer name</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {drugs.map((row: Row) => (
-            <TableRow
+            <StyledTableRow
               key={row.id}
               sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
             >
-              <TableCell component="th" scope="row">
+              <StyledTableCell component="th" scope="row">
                 {row.brand_name}
-              </TableCell>
-              <TableCell align="right">{row.purpose}</TableCell>
-              <TableCell align="right">{row.product_type}</TableCell>
-              <TableCell align="right">{row.manufacturer_name}</TableCell>
-            </TableRow>
+              </StyledTableCell>
+              <StyledTableCell align="right">{row.purpose}</StyledTableCell>
+              <StyledTableCell align="right">
+                {row.product_type}
+              </StyledTableCell>
+              <StyledTableCell align="right">
+                {row.manufacturer_name}
+              </StyledTableCell>
+            </StyledTableRow>
           ))}
         </TableBody>
         <TableFooter>

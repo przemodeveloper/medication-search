@@ -51,10 +51,7 @@ const DrugsListTable = ({
           <TableBody>
             {drugs?.length > 0 &&
               drugs.map((row: Row) => (
-                <TableRow
-                  key={row.id}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
+                <TableRow key={row.id}>
                   <TableCell component="th" scope="row">
                     <StyledLink
                       to={`/details/${row.product_ndc.toLowerCase()}`}

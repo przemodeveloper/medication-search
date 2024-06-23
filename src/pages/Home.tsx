@@ -1,17 +1,10 @@
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { TableFooter, TablePagination, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import { debounce } from "lodash";
 import { createData } from "../utils/createData";
 import { getDrugsList } from "../services/drugs";
 import useQueryParams from "../hooks/useQueryParams";
-import TablePaginationControls from "../components/TablePaginationControls";
+import DrugsListTable from "../components/DrugsListTable";
 
 const Home = () => {
   const [drugs, setDrugs] = useState<any[]>([]);
@@ -78,55 +71,14 @@ const Home = () => {
         />
       </div>
 
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Brand Name</TableCell>
-              <TableCell align="right">Purpose</TableCell>
-              <TableCell align="right">Product Type</TableCell>
-              <TableCell align="right">Manufacturer name</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {drugs.map((row) => (
-              <TableRow
-                key={row.id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.brand_name}
-                </TableCell>
-                <TableCell align="right">{row.purpose}</TableCell>
-                <TableCell align="right">{row.product_type}</TableCell>
-                <TableCell align="right">{row.manufacturer_name}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-          <TableFooter>
-            <TableRow>
-              <TablePagination
-                rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
-                colSpan={3}
-                count={totalResults}
-                rowsPerPage={rowsPerPage}
-                page={pageQuery - 1}
-                slotProps={{
-                  select: {
-                    inputProps: {
-                      "aria-label": "rows per page",
-                    },
-                    native: true,
-                  },
-                }}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-                ActionsComponent={TablePaginationControls}
-              />
-            </TableRow>
-          </TableFooter>
-        </Table>
-      </TableContainer>
+      <DrugsListTable
+        drugs={drugs}
+        totalResults={totalResults}
+        rowsPerPage={rowsPerPage}
+        pageQuery={pageQuery}
+        handleChangePage={handleChangePage}
+        handleChangeRowsPerPage={handleChangeRowsPerPage}
+      />
     </div>
   );
 };

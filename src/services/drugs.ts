@@ -33,11 +33,9 @@ export const getDrugsList = async ({
   }
 };
 
-export const getDrugDetails = async (ndc: string): Promise<RootResult> => {
+export const getDrugDetails = async (id: string): Promise<RootResult> => {
   try {
-    const response = await axios.get(
-      `${BASE_URL}?search=openfda.product_ndc:${ndc}`
-    );
+    const response = await axios.get(`${BASE_URL}?search=id:${id}`);
     return response.data;
   } catch (error: unknown) {
     if (axios.isAxiosError(error) && error.response) {

@@ -19,6 +19,8 @@ const Details = () => {
     });
   }, [ndc]);
 
+  console.log(details);
+
   return (
     <Box sx={{ minWidth: 275 }} className="mt-5">
       {details && (

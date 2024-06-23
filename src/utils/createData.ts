@@ -3,8 +3,7 @@ export const createData = (
   purpose: string,
   product_type: string,
   manufacturer_name: string,
-  id: string,
-  product_ndc: string
+  id: string
 ) => {
   return {
     brand_name,
@@ -12,6 +11,5 @@ export const createData = (
     product_type,
     manufacturer_name,
     id,
-    product_ndc,
   };
 };

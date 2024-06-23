@@ -42,10 +42,7 @@ const Home = () => {
             result.openfda.manufacturer_name
               ? result.openfda.manufacturer_name.join(", ")
               : "",
-            result.id,
-            result.openfda.product_ndc
-              ? result.openfda.product_ndc.join(", ")
-              : ""
+            result.id
           );
         });
 

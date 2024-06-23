@@ -4,7 +4,6 @@ export interface Row {
   product_type: string;
   manufacturer_name: string;
   id: string;
-  product_ndc: string;
 }
 
 export interface RootResult {
